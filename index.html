@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animal Images 2</title>
+    <title>Animal Images step-2 feature append image</title>
     <!-- step 2 add in grid styles -->
     <style>
         div#animal-images {
@@ -40,16 +40,98 @@
 <body>
     <div id="animal-images">
         <h2>Random Animal Images</h2>
-        <div id="random" class="animal-grid">
+        <label for="random-input">Add a random animal image url:</label>
+        <input type="text" placeholder="add image url" id="random-input">
+        <button type="button" id="add-random">Add Image</button>
+        <div id="random-animals" class="animal-grid">
         </div>
-        <h2>Bunny Images</h2>
-        <div id="bunnies" class="animal-grid">
-        </div>
-        <h2>Tiger Images</h2>
-        <div id="tigers" class="animal-grid">
-        </div>
+        <style>
+            .delete-button {
+                position: absolute;
+            }
+        </style>
     </div>
-    <script src="animal_image_arrays_multiple_sections.js"></script>
+    <script>
+        // Utilize pexels.com for images
+        // here is the url for animal searches: https://www.pexels.com/search/animals/
+
+        //
+        const animalImgDiv = document.getElementById("animal-images");
+        const randomDiv = document.getElementById("random-animals");
+        const randomUrlInput = document.getElementById("random-input");
+        const randomAddButton = document.getElementById("add-random");
+        // random animal urls
+        const kittensURL1 =
+            "https://images.pexels.com/photos/45170/kittens-cat-cat-puppy-rush-45170.jpeg?auto=compress&cs=tinysrgb&w=800";
+        const elephantsURL1 =
+            "https://images.pexels.com/photos/66898/elephant-cub-tsavo-kenya-66898.jpeg?auto=compress&cs=tinysrgb&w=800";
+        const giraffesURL1 =
+            "https://images.pexels.com/photos/34098/south-africa-hluhluwe-giraffes-pattern.jpg?auto=compress&cs=tinysrgb&w=800";
+        const bunniesURL1 =
+            "https://images.pexels.com/photos/33152/european-rabbits-bunnies-grass-wildlife.jpg?auto=compress&cs=tinysrgb&w=800";
+        const bunniesURL2 =
+            "https://images.pexels.com/photos/6845996/pexels-photo-6845996.jpeg";
+        const tigersURL1 =
+            "https://images.pexels.com/photos/814898/pexels-photo-814898.jpeg?auto=compress&cs=tinysrgb&w=800";
+        const tigersURL2 =
+            "https://images.pexels.com/photos/2541239/pexels-photo-2541239.jpeg?auto=compress&cs=tinysrgb&w=800";
+        const cheetahsURL1 =
+            "https://images.pexels.com/photos/162318/cheetahs-cubs-two-together-162318.jpeg?auto=compress&cs=tinysrgb&w=800";
+        const randomAnimalImgURLs = [
+            kittensURL1,
+            elephantsURL1,
+            giraffesURL1,
+            bunniesURL1,
+            tigersURL1,
+            cheetahsURL1,
+        ];
+        function iterateImages() {
+            // randomDiv.innerHTML = "";
+            randomAnimalImgURLs.forEach((url, index) => {
+                appendImageToDiv(url, index);
+            });
+
+        }
+        iterateImages();
+        function appendImageToDiv(url, index) {
+            const imgContainer = document.createElement('div');
+            const deleteButton = document.createElement('button');
+            deleteButton.textContent = "X";
+            deleteButton.classList.add('delete-button');
+            // add the index of the image to the delete button using dataset
+            deleteButton.dataset.index = index;
+            deleteButton.addEventListener('click', deleteRandomImage);
+            imgContainer.appendChild(deleteButton);
+
+            const animalIMG = document.createElement("img");
+            animalIMG.src = url;
+            animalIMG.alt = "cute animal picture";
+            animalIMG.title = "cute animal picture";
+            imgContainer.appendChild(animalIMG);
+            randomDiv.appendChild(imgContainer);
+        }
+        function addRandomImage() {
+            const url = randomUrlInput.value;
+            const newIndex = randomAnimalImgURLs.length;
+            randomAnimalImgURLs.push(url);
+            appendImageToDiv(url, newIndex);
+            randomUrlInput.value = "";
+            console.log(randomAnimalImgURLs);
+        }
+        function deleteRandomImage() {
+            const index = event.target.dataset.index;
+            randomAnimalImgURLs.splice(index, 1);
+            event.target.parentElement.remove();
+
+            // Update indices for remaining delete buttons
+            document.querySelectorAll('.delete-button').forEach((button, newIndex) => {
+                button.dataset.index = newIndex;
+            });
+        }
+
+        randomAddButton.addEventListener('click', addRandomImage)
+    </script>
+    <!-- <script src="animal_image_arrays.js"></script> -->
 </body>
 
 </html>
