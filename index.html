@@ -4,10 +4,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Animal Image Search Step-1</title>
-
+    <title>Animal Images 2</title>
+    <!-- step 2 add in grid styles -->
     <style>
         div#animal-images {
+            width: 100%;
+            overflow: hidden;
+        }
+
+        div.animal-grid {
             width: 100%;
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -18,7 +23,7 @@
             justify-content: center; */
         }
 
-        div#animal-images img {
+        div.animal-grid img {
             width: 100%;
             height: 33vh;
             object-fit: cover;
@@ -26,15 +31,25 @@
             border: 2px dashed blue;
         }
 
-        div#animal-images img:hover {
+        div.animal-grid img:hover {
             height: auto;
         }
     </style>
 </head>
 
 <body>
-    <div id="animal-images"></div>
-    <script src="animal_image_arrays.js"></script>
+    <div id="animal-images">
+        <h2>Random Animal Images</h2>
+        <div id="random" class="animal-grid">
+        </div>
+        <h2>Bunny Images</h2>
+        <div id="bunnies" class="animal-grid">
+        </div>
+        <h2>Tiger Images</h2>
+        <div id="tigers" class="animal-grid">
+        </div>
+    </div>
+    <script src="animal_image_arrays_multiple_sections.js"></script>
 </body>
 
 </html>
